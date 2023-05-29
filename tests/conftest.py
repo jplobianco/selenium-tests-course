@@ -6,11 +6,24 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 
+#@pytest.fixture(params=["chrome", "firefox"])
 @pytest.fixture()
-def driver():
-    print("Creating Chrome Driver")
-    #my_driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    my_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+def driver(request):
+    browser = request.config.getoption("--browser")
+    #browser = request.param
+    print(f"Creating {browser} driver")
+    if browser == "chrome":
+        my_driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    elif browser == "firefox":
+        my_driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+    else:
+        raise TypeError(f"Expected 'chrome' or 'firefox', but got {browser}")
+    my_driver.implicitly_wait(0.5)
     yield my_driver
-    print("Closing Chrome Driver")
+    print(f"Closing {browser} driver")
     my_driver.quit()
+
+def pytest_addoption(parser):
+    parser.addoption(
+        "--browser", action="store", default="chrome", help="browser to execute tests (chrome or firefox)"
+    )
