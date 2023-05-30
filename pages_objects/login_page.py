@@ -11,6 +11,7 @@ class LoginPage(BasePage):
     __username_field = (By.ID, "username")
     __password_field = (By.NAME, "password")
     __submit_button = (By.XPATH, "//button[@class='btn']")
+    __error_message = (By.ID, "error")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
@@ -22,3 +23,6 @@ class LoginPage(BasePage):
 
     def open(self):
         super()._open_url(self.__url)
+
+    def get_error_message(self) -> str:
+        return super()._get_text(self.__error_message, timeout=3)

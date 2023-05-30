@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-class BasePage():
+class BasePage:
     def __init__(self, driver: WebDriver):
         self._driver = driver
 
@@ -23,6 +23,14 @@ class BasePage():
     def _wait_until_element_is_visible(self, locator: tuple, timeout: int = 10):
         wait = WebDriverWait(self._driver, timeout=timeout)
         wait.until(expected_conditions.visibility_of_element_located(locator))
+
+    def _wait_until_element_is_clickable(self, locator: tuple, timeout: int = 10):
+        wait = WebDriverWait(self._driver, timeout=timeout)
+        wait.until(expected_conditions.element_to_be_clickable(locator))
+
+    def _wait_until_invisibility_of_element(self, locator: tuple, timeout: int = 10, message: str = "Error waiting for element"):
+        wait = WebDriverWait(self._driver, timeout=timeout)
+        wait.until(expected_conditions.invisibility_of_element_located(locator), message=message)
 
     @property
     def current_url(self) -> str:
