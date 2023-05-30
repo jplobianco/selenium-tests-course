@@ -36,8 +36,3 @@ assert actual_text == "Logged In Successfully"
 
 logout_button_locator = driver.find_element(By.LINK_TEXT, "Log out")
 assert logout_button_locator.is_displayed()
-
-
-# Verify new page URL contains practicetestautomation.com/logged-in-successfully/
-# Verify new page contains expected text ('Congratulations' or 'successfully logged in')
-# Verify button Log out is displayed on the new page

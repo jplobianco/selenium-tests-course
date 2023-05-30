@@ -30,7 +30,7 @@ class TestNegativeScenarios:
 
         # Check if Login Failed message is displayed
         error_message_locator = driver.find_element(By.ID, "error")
-        assert error_message_locator.is_displayed(), "Error message is not displayed but it should be"
+        assert error_message_locator._is_displayed(), "Error message is not displayed but it should be"
 
         error_message = error_message_locator.text
         assert error_message == expected_error, f"Error message should be {expected_error}"
@@ -54,7 +54,7 @@ class TestNegativeScenarios:
 
         # Check if Login Failed message is displayed
         error_message_locator = driver.find_element(By.ID, "error")
-        assert error_message_locator.is_displayed(), "Error message is not displayed but it should be"
+        assert error_message_locator._is_displayed(), "Error message is not displayed but it should be"
 
         error_message = error_message_locator.text
         assert error_message == "Your username is invalid!", "Error message should be Your username is invalid!"
@@ -73,7 +73,7 @@ class TestNegativeScenarios:
         time.sleep(2)
 
         error_message_locator = driver.find_element(By.ID, "error")
-        assert error_message_locator.is_displayed(), "Error message is not displayed but it should be"
+        assert error_message_locator._is_displayed(), "Error message is not displayed but it should be"
 
         error_message = error_message_locator.text
         assert error_message == "Your password is invalid!", "Error message should be Your password is invalid!"
